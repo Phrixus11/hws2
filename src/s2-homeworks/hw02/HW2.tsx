@@ -36,7 +36,7 @@ const defaultAffairs: AffairType[] = [ // need to fix any
 
 // pure helper functions
 export const filterAffairs = (affairs: AffairType[], filter: FilterType): any => { // need to fix any
-    let filteredAffairs = [...affairs]
+    let filteredAffairs = affairs
     if (filter === 'low') filteredAffairs = affairs.filter(a => a.priority === 'low')
     if (filter === 'high') filteredAffairs = affairs.filter(a => a.priority === 'high')
     if (filter === 'middle') filteredAffairs = affairs.filter(a => a.priority === 'middle')
