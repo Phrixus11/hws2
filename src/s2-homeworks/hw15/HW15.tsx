@@ -70,11 +70,11 @@ const HW15 = () => {
 
   const onChangePagination = (newPage: number, newCount: number) => {
     // делает студент
-    const params = Object.fromEntries(searchParams)
+    // const params = Object.fromEntries(searchParams)
     setPage(newPage)
-    setCount(+params.count)
+    setCount(newCount)
     setSearchParams({page: String(newPage), count: String(newCount)})
-
+    // sendQuery(params)
   }
 
   const onChangeSort = (newSort: string) => {
@@ -82,27 +82,23 @@ const HW15 = () => {
     setSort(newSort)
     setPage(1) // при сортировке сбрасывать на 1 страницу
 
-    // sendQuery(
     const params = Object.fromEntries(searchParams)
-    setSearchParams({page: '1', count: params.count})
+    setSearchParams(_prev => ({...params, page: '1', count: params.count, sort: newSort }))
   }
 
   useEffect(() => {
     const params = Object.fromEntries(searchParams)
-    sendQuery({page: params.page, count: params.count})
+    // sendQuery({page: params.page, count: params.count})
     setPage(+params.page || 1)
     setCount(+params.count || 4)
-  }, [searchParams])
+  }, [])
 
-  let data = techs
-  if (sort === '0tech') data = techs.sort((a, b) => a.tech.localeCompare(b.tech));
-  if (sort === '1tech') data = techs.sort((a, b) => b.tech.localeCompare(a.tech));
-  if (sort === '0developer') data = techs.sort((a, b) => a.developer.localeCompare(b.developer));
-  if (sort === '1developer') data = techs.sort((a, b) => b.developer.localeCompare(a.developer));
+  useEffect(() => {
+    const params = Object.fromEntries(searchParams)
+    sendQuery(params)
+  }, [searchParams]);
 
-
-
-  const mappedTechs = data.map(t => (
+  const mappedTechs = techs.map(t => (
       <div key={t.id} className={s.row}>
         <div id={'hw15-tech-' + t.id} className={s.tech}>
           {t.tech}
