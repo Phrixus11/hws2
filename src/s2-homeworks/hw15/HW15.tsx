@@ -70,11 +70,11 @@ const HW15 = () => {
 
   const onChangePagination = (newPage: number, newCount: number) => {
     // делает студент
-    // const params = Object.fromEntries(searchParams)
+
     setPage(newPage)
     setCount(newCount)
     setSearchParams({page: String(newPage), count: String(newCount)})
-    // sendQuery(params)
+
   }
 
   const onChangeSort = (newSort: string) => {
@@ -83,7 +83,7 @@ const HW15 = () => {
     setPage(1) // при сортировке сбрасывать на 1 страницу
 
     const params = Object.fromEntries(searchParams)
-    setSearchParams(_prev => ({...params, page: '1', count: params.count, sort: newSort }))
+    setSearchParams(_prev => ({...params, page: '1', count: String(count), sort: newSort }))
   }
 
   useEffect(() => {
